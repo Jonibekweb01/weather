@@ -7,11 +7,13 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "lodash.debounce": "^4.0.8",
+    "lru-cache": "^10.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.24.1",
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.2",
+    "rimraf": "^5.0.7",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
@@ -39,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4"
   }
 }
