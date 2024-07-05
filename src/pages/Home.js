@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Weather from "../components/Weather";
+import "../app.css";
 
 function Home() {
   const [city, setCity] = useState("Tashkent"); 
