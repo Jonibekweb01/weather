@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import debounce from "lodash.debounce";
 import Rain from "../images/rain.svg";
 import Left from "../images/left.svg";
-import "../app.css"; // Import your CSS file for styling
+import '../app.css';// Import your CSS file for styling
 import Burger from "../images/burger.svg";
 import Location from "../images/location.svg";
 import Plus from "../images/Symbol.svg";
