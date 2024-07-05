@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import debounce from "lodash.debounce";
 import Rain from "../images/rain.svg";
 import Left from "../images/left.svg";
-import '../app.css';// Import your CSS file for styling
+import "../app.css"; // Import your CSS file for styling
 import Burger from "../images/burger.svg";
 import Location from "../images/location.svg";
 import Plus from "../images/Symbol.svg";
@@ -80,7 +80,7 @@ function Weather({ city, setCity }) {
     []
   );
 
-  const fetchCountryDegrees = async () => {
+  const fetchCountryDegrees = useCallback(async () => {
     try {
       const degrees = await Promise.all(
         defaultCountries.map(async (country) => {
@@ -105,16 +105,16 @@ function Weather({ city, setCity }) {
       setCountryDegrees([]);
       // Optionally, set an error state to display to the user
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (city) {
       fetchWeatherData(city);
       fetchCountryDegrees();
     }
-  }, [city, fetchWeatherData]);
+  }, [city, fetchWeatherData, fetchCountryDegrees]);
 
-  const formatTime = (time) => {
+  const formatTime = useCallback((time) => {
     const date = new Date();
     date.setHours(time, 0, 0, 0);
     const formattedTime = date.toLocaleTimeString([], {
@@ -122,45 +122,51 @@ function Weather({ city, setCity }) {
       hour12: true,
     });
     return formattedTime.toUpperCase(); // Convert to uppercase for AM/PM
-  };
+  }, []);
 
-  const getWeatherAtTime = (hour) => {
-    return weatherData.find((item) => parseInt(item.time, 10) === hour * 100);
-  };
+  const getWeatherAtTime = useCallback(
+    (hour) => {
+      return weatherData.find((item) => parseInt(item.time, 10) === hour * 100);
+    },
+    [weatherData]
+  );
 
-  const generateTimesToShow = (currentHour) => {
+  const generateTimesToShow = useCallback((currentHour) => {
     const times = [];
     for (let i = 0; i < 16; i++) {
       times.push((currentHour + i) % 24);
     }
     return times;
-  };
+  }, []);
 
   const currentHour = new Date().getHours();
   const timesToShow = generateTimesToShow(currentHour);
 
-  const handleClosePanel = () => {
+  const handleClosePanel = useCallback(() => {
     setSidePanelClosing(true);
     setTimeout(() => {
       setSidePanelVisible(false);
       setSidePanelClosing(false);
     }, 500); // Duration of the slideOut animation
-  };
+  }, []);
 
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     setModalVisible(false); // Closing the modal
-  };
+  }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchCity.trim()) {
-      fetchWeatherData(searchCity.trim());
-    }
-  };
+  const handleSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (searchCity.trim()) {
+        fetchWeatherData(searchCity.trim());
+      }
+    },
+    [fetchWeatherData, searchCity]
+  );
 
-  const handleInputChange = (event) => {
+  const handleInputChange = useCallback((event) => {
     setSearchCity(event.target.value);
-  };
+  }, []);
 
   // Log currentWeather state in the render method
   console.log("Current weather state:", currentWeather);
