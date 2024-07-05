@@ -1,38 +1,1020 @@
-.App {
-  text-align: center;
+/* Base Styles */
+body {
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/back.png');
+    background-size: 723px 1250px;
+    background-position: -80px -69px;
+    background-repeat: no-repeat;
+    height: 98.2vh;
+    font-family: "Red Hat Display", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.city {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 41px;
+    text-align: center;
+    letter-spacing: 0.374px;
+    color: #FFFFFF;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.weatherBox {
+    position: absolute;
+    bottom: -13px;
+    padding: 69px 20px;
+    background-image: url('./images/Modal.png');
+    background-size: 425px 342px;
+    background-repeat: no-repeat;
+    width: 90%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.weatherBox>div:nth-child(1) {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.timeBig {
+    display: flex;
+    background-image: url("./images/degree.png");
+    background-size: 70px 154px;
+    background-repeat: no-repeat;
+    width: 98px;
+    height: 170px;
+    padding: 17px 10px 10px 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.timeBox {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.timeBox>span {
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.degree {
+    font-size: 18px !important;
+}
+
+
+
+.timeBox>span:nth-child(1) {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.timeBox span:nth-child(2) {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px !important;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: -0.078px;
+}
+
+.humid {
+    color: #40CBD8 !important;
+    font-size: 12px !important;
+}
+
+.timeBox span:nth-child(3) {
+    margin-bottom: 10px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 18px;
+    display: block;
+    text-align: center;
+    letter-spacing: -0.078px;
+    color: #FFFFFF;
+}
+
+.weatherBoxButton {
+    background-image: url("./images/Modal-2.png");
+    background-size: 420px 90px;
+    background-repeat: no-repeat;
+    bottom: 3px;
+    position: absolute;
+    left: 0;
+    height: 100px;
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+
+.weatherBoxButton button {
+    padding: 0 30px 0 30px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Add transition for smooth color change */
+}
+
+.backButton {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 14px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 27px;
+    line-height: 34px;
+    /* identical to box height, or 121% */
+    letter-spacing: 0.364px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+}
+
+
+@keyframes slideIn {
+    from {
+        right: -100%;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -100%;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000000 !important;
+    transition: 1s ease;
+    animation: modalFadeIn 1s forwards;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        bottom: -100%;
+    }
+
+    to {
+        opacity: 1;
+        bottom: 0;
+    }
+}
+
+.modalContent {
+    position: relative;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    animation: slideInModal 0.5s forwards;
+    /* Unique animation for modal content */
+}
+
+.modalContent button.closeButton {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    /* Add transition for smooth color change */
+}
+
+.modalContent button.closeButton:hover {
+    background-color: #c70039;
+}
+
+@keyframes slideInModal {
+    from {
+        transform: translateY(-50px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000 !important;
+    /* Ensure the modal is on top */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+.newBox {
+    background-image: url("./images/Subtract.png");
+    position: absolute;
+    right: 78px;
+    top: -30px;
+    background-repeat: no-repeat;
+    background-size: 320px 130px;
+    background-position: -12px 1px;
+    width: 67%;
+    height: 190px;
+    z-index: 1;
+}
+
+
+.newBox button {
+    padding: 20px;
+    border-radius: 50%;
+    background: white;
+}
+
+.newBox div {
+    background: linear-gradient(139.71deg, rgba(0, 0, 0, 0.4) 19.24%, rgba(255, 255, 255, 0.304) 86.09%);
+    filter: blur(0.5px);
+    width: 75px;
+    height: 80px;
+    width: 74px;
+    height: 77px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-left: 110px;
+    margin-top: 9px;
+}
+
+.home_box {
+    height: 900px;
+    background-image: url("./images/House.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: 20px 330px;
+}
+
+.title_city {
+    padding-top: 71px;
+    margin-bottom: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 41px;
+    /* identical to box height, or 121% */
+    text-align: center;
+    letter-spacing: 0.374px;
+    color: #FFFFFF;
+}
+
+.degreeTitle {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    font-style: normal;
+    font-weight: 200;
+    font-size: 96px;
+    line-height: 70px;
+    /* identical to box height, or 73% */
+    text-align: center;
+    letter-spacing: 0.374px;
+    color: #FFFFFF;
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
+.degreeText {
+    display: block;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    /* or 120% */
+    text-align: center;
+    letter-spacing: 0.38px;
+    color: #fff;
+}
+
+.degreeBo {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.sidePanel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("./images/backtwo.png");
+    background-repeat: no-repeat;
+    background-size: 720px 1510px;
+    background-position: -120px -190px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    overflow-y: auto;
+    animation: slideIn 0.5s forwards;
+}
+
+.sidePanel.hidden {
+    animation: slideOut 0.5s forwards;
+}
+
+.formWe {
+    width: 90%;
+    padding: 0 20px;
+}
+
+.formWe input {
+    /* SearchField */
+
+    /* Auto layout */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 15px;
+    padding: 7px 8px;
+
+    width: 358px;
+    height: 36px;
+
+    background: linear-gradient(168.44deg, rgba(46, 51, 90, 0.26) 1.62%, rgba(28, 27, 51, 0.26) 95.72%);
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    /* Inside auto layout */
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+    border: none !important;
+    outline: none;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.def__countries {}
+
+.def__countries ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 30px;
+}
+
+.def__countries li {
+    margin-bottom: 50px;
+    padding: 58px 20px 40px 20px;
+    background-repeat: no-repeat;
+    background-size: 350px 184px;
+    background-image: url("./images/Rectangle.png");
+}
+
+
+
+.def {
+    position: relative;
+}
+
+.def img {
+    position: absolute;
+    top: -30px;
+    right: 0;
+}
+
+.def>div>.tem {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 41px;
+    /* identical to box height, or 64% */
+    letter-spacing: 0.374px;
+    color: #FFFFFF;
+}
+
+.def>div {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+}
+
+.def div span:nth-child(2) {
+    /* Default / Bold / Title1 */
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 33px;
+    text-align: center;
+    letter-spacing: 0.36px;
+    /* Color System/Label Colour/Dark/Primary */
+    color: #FFFFFF;
+    /* Inside auto layout */
+    flex: none;
+    order: 9;
+    flex-grow: 0;
+}
+
+@media (min-width:390px) {
+    .weatherBox>div:nth-child(1) {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .weatherBox {
+        position: absolute;
+        bottom: -13px;
+        padding: 69px 20px;
+        background-size: 393px 342px;
+        background-repeat: no-repeat;
+        width: 89.7%;
+    }
+
+    .home_box {
+        height: 900px;
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: 20px 262px;
+
+    }
+
+    .formWe {
+        width: 90%;
+        padding: 0 10px;
+    }
+
+    .def__countries li {
+        margin-bottom: 50px;
+        padding: 58px 20px 40px 20px;
+        background-repeat: no-repeat;
+        background-size: 331px 184px;
+    }
+}
+
+@media (min-width:400px) {
+    .weatherBox {
+        position: absolute;
+        bottom: -13px;
+        padding: 69px 20px;
+        background-size: 425px 342px;
+        background-repeat: no-repeat;
+        width: 90%;
+    }
+
+    .home_box {
+        height: 900px;
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: 20px 332px;
+    }
+
+    /* Base Styles */
+    body {
+        overflow: hidden;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        background-image: url('./images/back.png');
+        background-size: 723px 1250px;
+        background-position: -80px -69px;
+        background-repeat: no-repeat;
+        height: 98.2vh;
+        font-family: "Red Hat Display", sans-serif;
+    }
+
+    .city {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 38px;
+        line-height: 41px;
+        text-align: center;
+        letter-spacing: 0.374px;
+        color: #FFFFFF;
+    }
+
+    .weatherBox {
+        position: absolute;
+        bottom: -13px;
+        padding: 69px 20px;
+        background-image: url('./images/Modal.png');
+        background-size: 425px 342px;
+        background-repeat: no-repeat;
+        width: 90%;
+    }
+
+    .weatherBox>div:nth-child(1) {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .timeBig {
+        display: flex;
+        background-image: url("./images/degree.png");
+        background-size: 70px 154px;
+        background-repeat: no-repeat;
+        width: 98px;
+        height: 170px;
+        padding: 17px 10px 10px 10px;
+    }
+
+    .timeBox {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .timeBox>span {
+        text-align: center;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: -0.5px;
+        color: #FFFFFF;
+        flex: none;
+        order: 0;
+        flex-grow: 0;
+    }
+
+    .degree {
+        font-size: 18px !important;
+    }
+
+
+
+    .timeBox>span:nth-child(1) {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .timeBox span:nth-child(2) {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px !important;
+        line-height: 18px;
+        text-align: center;
+        letter-spacing: -0.078px;
+    }
+
+    .humid {
+        color: #40CBD8 !important;
+        font-size: 12px !important;
+    }
+
+    .timeBox span:nth-child(3) {
+        margin-bottom: 10px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 18px;
+        display: block;
+        text-align: center;
+        letter-spacing: -0.078px;
+        color: #FFFFFF;
+    }
+
+    .weatherBoxButton {
+        background-image: url("./images/Modal-2.png");
+        background-size: 420px 90px;
+        background-repeat: no-repeat;
+        bottom: 3px;
+        position: absolute;
+        left: 0;
+        height: 100px;
+        width: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .weatherBoxButton button {
+        padding: 0 30px 0 30px;
+        background-color: transparent;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        /* Add transition for smooth color change */
+    }
+
+    .backButton {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        padding: 14px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 27px;
+        line-height: 34px;
+        /* identical to box height, or 121% */
+        letter-spacing: 0.364px;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+
+    }
+
+
+    @keyframes slideIn {
+        from {
+            right: -100%;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes slideOut {
+        from {
+            right: 0;
+        }
+
+        to {
+            right: -100%;
+        }
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000000 !important;
+        transition: 1s ease;
+        animation: modalFadeIn 1s forwards;
+    }
+
+    @keyframes modalFadeIn {
+        from {
+            opacity: 0;
+            bottom: -100%;
+        }
+
+        to {
+            opacity: 1;
+            bottom: 0;
+        }
+    }
+
+    .modalContent {
+        position: relative;
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        animation: slideInModal 0.5s forwards;
+        /* Unique animation for modal content */
+    }
+
+    .modalContent button.closeButton {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ff5733;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        /* Add transition for smooth color change */
+    }
+
+    .modalContent button.closeButton:hover {
+        background-color: #c70039;
+    }
+
+    @keyframes slideInModal {
+        from {
+            transform: translateY(-50px);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000 !important;
+        /* Ensure the modal is on top */
+        transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+
+    .newBox {
+        background-image: url("./images/Subtract.png");
+        position: absolute;
+        right: 78px;
+        top: -30px;
+        background-repeat: no-repeat;
+        background-size: 320px 130px;
+        background-position: -12px 1px;
+        width: 67%;
+        height: 190px;
+        z-index: 1;
+    }
+
+
+    .newBox button {
+        padding: 20px;
+        border-radius: 50%;
+        background: white;
+    }
+
+    .newBox div {
+        background: linear-gradient(139.71deg, rgba(0, 0, 0, 0.4) 19.24%, rgba(255, 255, 255, 0.304) 86.09%);
+        filter: blur(0.5px);
+        width: 75px;
+        height: 80px;
+        width: 74px;
+        height: 77px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        margin-left: 110px;
+        margin-top: 9px;
+    }
+
+    .home_box {
+        height: 900px;
+        background-image: url("./images/House.png");
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: 20px 330px;
+    }
+
+    .title_city {
+        padding-top: 71px;
+        margin-bottom: 0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 34px;
+        line-height: 41px;
+        /* identical to box height, or 121% */
+        text-align: center;
+        letter-spacing: 0.374px;
+        color: #FFFFFF;
+    }
+
+    .degreeTitle {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+        font-style: normal;
+        font-weight: 200;
+        font-size: 96px;
+        line-height: 70px;
+        /* identical to box height, or 73% */
+        text-align: center;
+        letter-spacing: 0.374px;
+        color: #FFFFFF;
+        margin-bottom: 12px;
+        margin-top: 12px;
+    }
+
+    .degreeText {
+        display: block;
+        text-align: center;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 24px;
+        /* or 120% */
+        text-align: center;
+        letter-spacing: 0.38px;
+        color: #fff;
+    }
+
+    .degreeBo {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .sidePanel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("./images/backtwo.png");
+        background-repeat: no-repeat;
+        background-size: 720px 1510px;
+        background-position: -120px -190px;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        overflow-y: auto;
+        animation: slideIn 0.5s forwards;
+    }
+
+    .sidePanel.hidden {
+        animation: slideOut 0.5s forwards;
+    }
+
+    .formWe {
+        width: 90%;
+        padding: 0 20px;
+    }
+
+    .formWe input {
+        /* SearchField */
+
+        /* Auto layout */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 15px;
+        padding: 7px 8px;
+
+        width: 358px;
+        height: 36px;
+
+        background: linear-gradient(168.44deg, rgba(46, 51, 90, 0.26) 1.62%, rgba(28, 27, 51, 0.26) 95.72%);
+        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+
+        /* Inside auto layout */
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 0;
+        border: none !important;
+        outline: none;
+        color: #fff;
+        margin-bottom: 30px;
+    }
+
+    .def__countries {}
+
+    .def__countries ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0 30px;
+    }
+
+    .def__countries li {
+        margin-bottom: 50px;
+        padding: 58px 20px 40px 20px;
+        background-repeat: no-repeat;
+        background-size: 350px 184px;
+        background-image: url("./images/Rectangle.png");
+    }
+
+
+
+    .def {
+        position: relative;
+    }
+
+    .def img {
+        position: absolute;
+        top: -30px;
+        right: 0;
+    }
+
+    .def>div>.tem {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 64px;
+        line-height: 41px;
+        /* identical to box height, or 64% */
+        letter-spacing: 0.374px;
+        color: #FFFFFF;
+    }
+
+    .def>div {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 24px;
+    }
+
+    .def div span:nth-child(2) {
+        /* Default / Bold / Title1 */
+        font-style: normal;
+        font-weight: 600;
+        font-size: 28px;
+        line-height: 33px;
+        text-align: center;
+        letter-spacing: 0.36px;
+        /* Color System/Label Colour/Dark/Primary */
+        color: #FFFFFF;
+        /* Inside auto layout */
+        flex: none;
+        order: 9;
+        flex-grow: 0;
+    }
+}
+
+@media (min-width:430px) {
+    .weatherBox {
+        position: absolute;
+        bottom: -23px;
+        right: 0px;
+        padding: 69px 21px;
+        background-size: 437px 342px;
+        background-repeat: no-repeat;
+        width: 92%;
+    }
+
+    .weatherBoxButton {
+        background-size: 440px 90px !important;
+        background-repeat: no-repeat;
+        bottom: 3px;
+        position: absolute;
+        left: 0;
+        height: 100px;
+        width: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .weatherBox {
+        position: absolute;
+        bottom: -23px;
+        right: 0px;
+        padding: 69px 21px 69px 37px;
+        background-size: 457px 342px;
+        background-repeat: no-repeat;
+        width: 88%;
+    }
+
+    .sidePanel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-size: 770px 1540px;
+        background-position: -120px -190px;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+        z-index: 10;
+        overflow-y: auto;
+        animation: slideIn 0.5s forwards;
+    }
+
+    .def img {
+        position: absolute;
+        top: -30px;
+        right: 18px;
+    }
 }
